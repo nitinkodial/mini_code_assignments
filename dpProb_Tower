@@ -1,0 +1,83 @@
+    /*
+    * Implement the following functiont to return the minimum number of drinks to be purchased
+    */
+    static int minPrice(List<Integer> elements, int min_level, int max_level) {
+        if(max_level<=0||elements.size()==0){
+            return 0;
+        }
+        
+        //
+        int sum = max_level;
+        int n = elements.size();
+        boolean subsetTable[][]  = new boolean[n][sum+1];
+        for(int i=0;i<n;i++){
+            subsetTable[i][0] = true;
+        }
+        //for(int i=1;i<=sum;i++){
+        //    subsetTable[0][i] = false;
+        //}
+        for(int i= 1;i<n;i++){
+            for(int j=1;j<sum+1;j++){
+                
+                if(elements.get(i)<=j){
+                    subsetTable[i][j] = subsetTable[i-1][j]||subsetTable[i-1][j-elements.get(i)];
+                }
+                else{
+                    subsetTable[i][j] = subsetTable[i-1][j];
+                }
+                //System.out.println(i+" "+j+" "+elements.get(i)+" "+j+" "+subsetTable[i][j] );
+                
+            }
+        }
+        boolean subsetExistsFlag = false;
+        int minSet=1000;
+        for(int i = min_level;i<=max_level;i++){
+            if(subsetTable[n-1][i]== true){
+                subsetExistsFlag = true;
+                ArrayList<ArrayList<Integer>> myList = new ArrayList<ArrayList<Integer>>();
+                ArrayList<Integer> myList1= new ArrayList<Integer>();
+                    
+                getSubset(elements,subsetTable,n-1,sum,myList,myList1);
+                        System.out.println("nit");
+                for(int k=0;k<myList.size();k++){
+                    for(int x =0;x<myList.get(k).size();x++)
+                    {
+                        System.out.print(myList.get(k).get(x)+ "");
+                    }
+                    if(myList.get(k).size()<minSet){
+                        minSet = myList.get(k).size();
+                    }
+                }
+                
+            }    
+        }
+
+        //
+        return minSet;
+    }
+
+    static void getSubset(List<Integer> elements,boolean subsetTable[][],int i, int sum, ArrayList<ArrayList<Integer>> myList, ArrayList<Integer> myList1){
+        if(i==0&&sum!=0&&subsetTable[0][sum]){
+            myList1.add(elements.get(i));
+            myList.add(myList1);
+            return;
+        }
+        
+        if(i==0&&sum==0){
+            myList.add(myList1);
+            return;
+        }
+        
+        if(subsetTable[i-1][sum]){
+            ArrayList<Integer> newList = new ArrayList<>();
+            newList.addAll(myList1);
+            getSubset(elements,subsetTable,i-1,sum,myList,newList);
+        }
+        if(sum>=elements.get(i)&&subsetTable[i-1][sum-elements.get(i)])
+        {
+            myList1.add(elements.get(i));
+            getSubset(elements,subsetTable,i-1,sum-elements.get(i),myList,myList1);
+        }
+    }
+    
+    
