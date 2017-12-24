@@ -1,0 +1,70 @@
+//Rotate Matrix: Given an image represented by an NxN matrix, where each pixel in the image is 4
+// bytes, write a method to rotate the image by 90 degrees. (an you do this in place?
+
+#include<iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <sstream>
+
+using namespace std;
+
+
+
+template <typename T>
+std::string NumberToString ( T Number )
+{
+    std::ostringstream ss;
+    ss << Number;
+    return ss.str();
+}
+
+void printArr(int arr[],int n);
+
+
+void printArr(int arr[],int n) {
+    for (int i=0; i<n; i++) {
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+void printMap(map<int,int> myMap) {
+    for(map<int,int>::iterator it = myMap.begin(); it!=myMap.end(); it++) {
+        cout<<"key: "<<it->first<<" , value: "<<it->second<<endl;
+    }
+
+}
+
+
+//with additional datastructures,i.e. hashmap
+void rotateMatrix(vector<vector<int>>& matrix) {
+
+    
+}
+
+int main() {
+    
+    int width = 4;
+    int height = 4;
+    vector<vector<int>>matrix(height,vector<int>(width));
+    
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
+            matrix[i][j]=rand()%100;
+        }
+    }
+            
+    rotateMatrix(matrix);
+    
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
+            cout<<matrix[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    return 0;
+
+}

@@ -1,10 +1,9 @@
-//Check if string is permuation of another string
-//Ideal method is to check if max of one character has odd count. (Slightly less optimized version implemented below though).
+//Check if string1 is one or zero edits away from string2, in terms of edits being replace,insert,remove
 #include<iostream>
 #include <map>
 #include <vector>
 #include <algorithm>
-
+#include <cmath>
 
 using namespace std;
 
@@ -28,34 +27,36 @@ void printMap(map<int,int> myMap) {
 
 
 //with additional datastructures,i.e. hashmap
-bool checkForPermutation(string str1,string str2) {
-    if(str1.length()!=str2.length()) {
+bool checkForEdits(string str1,string str2) {
+    if(abs(str1.length()-str2.length())>1) {
         return false;
     }
-    map<char,int> fMap;
-
-    int n = str1.length();
-    for(int i=0; i<n; i++) {
-        char  c1 = str1.at(i);
-        map<char,int>::iterator it = fMap.find(c1);
-        if(it!=fMap.end()) {
-            fMap.insert(make_pair(c1,it->second+1));
-        }
-        else {
-            fMap.insert(make_pair(c1,1));
-        }
-
-    }
     bool flag = true;
-    n = str2.length();
-    for(int i=0; i<n; i++) {
-        char  c1 = str2.at(i);
-        map<char,int>::iterator it = fMap.find(c1);
-        if(it!=fMap.end()) {
-            
+
+    int n1 = str1.length();
+    int n2 = str2.length();
+    int numOfEdits = 0;
+
+    for(int i=0, j=0; i<n1,j<n2; ) {
+        if(str1.at(i)!=str2.at(j)) {
+            numOfEdits++;
+            if((numOfEdits)>1){
+                return false;
+            }
+            if(n1>n2) {
+                i++;
+            }
+            else if(n1<n2) {
+                j++;
+            }
+            else{
+                i++;
+                j++;
+            }
         }
         else {
-            return false;
+            i++;
+            j++;
         }
     }
 
@@ -64,12 +65,12 @@ bool checkForPermutation(string str1,string str2) {
 
 int main() {
 
-    string str1 = "Hello";
+    string str1 = "pale";
 
-    string str2 = "leHxo";
+    string str2 = "bake";
 
     //output  = [1,3,4,6,2,2,5,5,8,8,8]
-    cout<<checkForPermutation(str1,str2)<<endl;
+    cout<<checkForEdits(str1,str2)<<endl;
 //     printArr(arr,n);
 
     return 0;

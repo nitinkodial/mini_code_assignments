@@ -1,5 +1,4 @@
-//Check if string is permuation of another string
-
+//Check if string1 is one or zero edits away from string2, in terms of edits being replace,insert,remove
 #include<iostream>
 #include <map>
 #include <vector>
@@ -28,36 +27,30 @@ void printMap(map<int,int> myMap) {
 
 
 //with additional datastructures,i.e. hashmap
-bool checkForPermutation(string str1,string str2){
-    if(str1.length()!=str2.length()){
+bool checkForEdits(string str1,string str2) {
+    if(abs(str1.length()-str2.length())>1) {
         return false;
     }
-    map<char,int> fMap;
-
-    int n = str1.length();
-    for(int i=0;i<n;i++){
-     char  c1 = str.at(i);
-     map<char,int>::iterator it = fMap.find(c1);
-     if(it!=fMap.end()){
-         fMap.insert(make_pair(c1,it->second+1));
-     }
-     else{
-      fMap.insert(make_pair(c1,1));   
-     }
-     
-    }
     bool flag = true;
-    int n = str2.length();
-    for(int i=0;i<n;i++){
-     char  c1 = str.at(i);
-     map<char,int>::iterator it = fMap.find(c1);
-     if(it!=fMap.end()){
-         fMap.insert(make_pair(c1,it->second+1));
-     }
-     else{
-      fMap.insert(make_pair(c1,1));   
-     }
-     
+    
+    int n1 = str1.length();
+    int n2 = str2.length();
+    int numOfEdits = 0;
+    
+    for(int i=0,j=0; i<n1,j<n2; ) {
+        if(str1.at(i)!=str.at(j)){
+           numOfEdits++;
+           if(n1>n2){
+           i++               
+        }
+           else if(n1<n2){
+               j++;
+           }
+        }
+        else{
+            i++;
+            j++;
+        }
     }
     
     return flag;
@@ -65,14 +58,14 @@ bool checkForPermutation(string str1,string str2){
 
 int main() {
 
-    string str1 = "Helo";
-    
-    string str1 = "eHlo";
-    
+    string str1 = "Hello";
+
+    string str2 = "leHxo";
+
     //output  = [1,3,4,6,2,2,5,5,8,8,8]
-    cout<<checkForPermutation(str1,str2)<<endl;
+    cout<<checkForEdits(str1,str2)<<endl;
 //     printArr(arr,n);
-    
+
     return 0;
 
 }
