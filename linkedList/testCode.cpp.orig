@@ -1,0 +1,95 @@
+//check if 1 array is subset (non contiguous) of another array 
+#include <iostream>
+
+using namespace std;
+
+struct node{
+    int data;
+    node* next;
+};
+class linkedList{
+private:
+    node *head,*tail;
+    
+public:
+    linkedList(){
+        head=NULL;
+        tail=NULL;
+    }
+    
+    void insert_end(int data){
+        node *tmp = new node;
+        tmp->data = data;
+        tmp->next = NULL;
+        if(head==NULL){
+            head = tmp;
+            tail = tmp;
+        }
+        else{
+            tail->next = tmp;
+            tail = tail->next;
+        }
+        
+    }
+    void insert_front(int data){
+        node *tmp = new node;
+        tmp->data = data;
+        tmp->next = NULL;
+        if(head==NULL){
+            head = tmp;
+            tail = tmp;
+        }
+        else{
+            tmp->next = head;
+            head = tmp;
+        }
+    }
+    void insert_pos(int data,int n){
+        node *tmp = new node;
+        tmp->data = data;
+        tmp->next = NULL;
+        if(n==0){
+            insert_front(data);
+        }
+        else{
+            int  i = 0;
+            node *prev=head;
+            node *curr=prev->next;
+            while(prev!=NULL){
+                if(i==n-1){
+                   prev->next = tmp;
+                   tmp->next = curr;
+                   break;
+                }
+                prev = prev->next;
+                curr=curr->next;
+                i++;
+            }
+        }
+    }
+    void printNodes(){
+        if(head==NULL){
+            return;
+        }
+        else{
+            node *tmp=head;
+            while(tmp!=NULL){
+                cout<<tmp->data<<endl;
+                tmp=tmp->next;
+            }
+        }
+        
+    }
+};
+
+
+int main() {
+    
+    linkedList sll;
+    sll.insert_end(0);
+    sll.insert_end(1);
+    sll.insert_end(2);
+    sll.insert_end(3);
+    sll.printNodes();
+    return 0;
+}
