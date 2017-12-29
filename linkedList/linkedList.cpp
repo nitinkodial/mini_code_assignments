@@ -1,4 +1,4 @@
-//check if 1 array is subset (non contiguous) of another array
+//my linkedList implementation
 #include <iostream>
 #include "linkedList.h"
 
@@ -17,7 +17,49 @@ using namespace std;
         head=NULL;
         tail=NULL;
     }
-
+    
+    node* linkedList::get_tail(){
+        return tail;
+    }
+    node* linkedList::get_head(){
+        return head;
+    }
+    void linkedList::set_tail(node* ptr){
+        tail = ptr;
+    }
+    void linkedList::set_head(node* ptr){
+        head = ptr;
+    }
+    
+    int linkedList::get_length(){
+        int i = 0;
+        node* ptr = head;
+        while(ptr!=NULL){
+            ptr=ptr->next;
+            i++;
+        }
+        return i;
+    }
+    
+    void linkedList::update_tail(){
+        if(head==NULL){
+            tail = head;
+        }
+        else{
+            node* tmp = head;
+            while(tmp->next!=NULL){
+                tmp = tmp->next;
+            }
+            tail = tmp;
+        }
+    }
+    
+    void linkedList::insert_array(int* data, int n) {
+        for(int i = 0;i<n;i++){
+            insert_end(data[i]);
+        }
+    }
+    
     void linkedList::insert_end(int data) {
         node *tmp = new node;
         tmp->data = data;

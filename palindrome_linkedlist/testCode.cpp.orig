@@ -1,0 +1,49 @@
+// Palindrome: Implement a function to check if a linked list is a palindrome.
+#include <iostream>
+#include "../linkedList/linkedList.h"
+
+using namespace std;
+
+//head is unit's place
+bool palindrome(linkedList* sll) {
+    
+    node* ptr1 = sll1->get_head();
+    node* ptr2 = sll2->get_head();
+    bool flag = true;
+    palindrome_helper(ptr1,ptr2,flag);
+    return flag;
+}
+
+void palindrome_helper(node* ptr_end,node* ptr_front, bool& flag) {
+    if(ptr_end->next==NULL){
+        if(ptr_end->data!=ptr_front->data){
+            flag = false;
+        }
+    }
+    else{
+        palindrome_helper(ptr_end->next,ptr_front, bool& flag);
+        ptr_front = ptr_front->next;
+        if(ptr_end->data!=ptr_front->data){
+            flag = false;
+        }
+    }
+}
+
+// 6,3,2
+// 3,6,2
+int main() {
+
+    linkedList sll1,sll2,sll3;
+    int data1[] = {9,7,8,9};//{6,1,7};//{7,1,6};//
+
+    int n1 = sizeof(data1)/sizeof(data1[0]);
+    sll1.insert_array(data1,n1);
+
+    
+    //tail is unit's place
+    cout<<palindrome(&sll1)<<endl;
+
+
+
+    return 0;
+}
