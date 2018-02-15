@@ -1,0 +1,20 @@
+#include <iostream>
+//#include "../stack/stack.h"
+
+using namespace std;
+
+
+int main() {
+    int arrSize = 100;
+    int *arr = new int[arrSize];
+    int stack0_size = 0;
+    int stack1_size = 0;
+    int stack2_size = 0;
+
+    for(int i = 0; i<arrSize; i++) {
+        arr[i]=0;
+    }
+    
+    delete [] arr;
+
+}
